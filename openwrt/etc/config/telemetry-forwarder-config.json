@@ -1,0 +1,10 @@
+{
+    "DPS_IDSCOPE": "...",
+    "DPS_RegistrationId": "",
+    "DPS_SharedAccessSignature": "",
+    "DPS_DeviceCertificateFile": "/etc/rsu-connector/e2e-test-device.fullchain.cert.pem",
+    "DPS_DeviceKeyFile": "/etc/rsu-connector/e2e-test-device.key.pem",
+    "jobschedule_tickinternal_ms": 100,
+    "message_retry_interval_s": 10,
+    "forward_to_effilink": true
+}

@@ -1,0 +1,466 @@
+{
+    "@id": "dtmi:com:bosch:bt:RemoteServicesFuture:RemoteServiceUnit;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "Remote Service Unit",
+    "description": "The Remote Service Unit (RSU) which is able to provide remote access capabilities.",
+    "contents": [
+        {
+            "@type": "Property",
+            "name": "Name",
+            "displayName": "Name",
+            "description": "Optional logical name of the Remote Service Unit (edge gateway).",
+            "schema": "string",
+            "writable": true
+        },
+        {
+            "@type": "Property",
+            "name": "MACAddress",
+            "displayName": "MAC address",
+            "description": "WAN MAC address of the Remote Service Unit.",
+            "schema": "string"
+        },
+        {
+            "@type": "Property",
+            "name": "Hostname",
+            "displayName": "Hostname",
+            "description": "Hostname of the Remote Service Unit.",
+            "schema": "string"
+        },
+        {
+            "@type": "Property",
+            "name": "Type",
+            "displayName": "Type",
+            "description": "Type description of the Remote Service Unit e.g. ESU4000d.",
+            "schema": "string"
+        },
+        {
+            "@type": "Property",
+            "name": "FirmwareVersion",
+            "displayName": "Firmware version",
+            "description": "Version of the Remote Service Unit firmware e.g. v1.0",
+            "schema": "string"
+        },
+        {
+            "@type": "Property",
+            "name": "Serial",
+            "displayName": "Serial",
+            "description": "Serial number of the Remote Service Unit",
+            "schema": "string"
+        },
+        {
+            "@type": "Property",
+            "name": "VPNConnectionActive",
+            "displayName": "VPN connection active",
+            "description": "True if the Remote Service Unit is connected to the VPN Gateway.",
+            "schema": "boolean"
+        },
+        {
+            "@type": "Command",
+            "name": "RestartConnector",
+            "displayName": "Restart  cloud connector",
+            "description": "Command to restart the cloud connector.",
+            "response": {
+                "name": "RestartStatus",
+                "displayName": "Status of the restart",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "RestartInitiated",
+                            "displayName": "RestartInitiated",
+                            "description": "True when the restart was initiated successfully.",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "GetNetworkDetails",
+            "displayName": "Get network details",
+            "description": "Get for all network adapters of the RSU the network details",
+            "response": {
+                "name": "NetworkDetails",
+                "displayName": "Network Details of the Remote Service Unit",
+                "schema": {
+                    "@type": "Array",
+                    "elementSchema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Name",
+                                "displayName": "Network Adapter Name",
+                                "description": "The name of the network adapter e.g. eth0",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "IPv4Address",
+                                "displayName": "Network adapter IPv4 address",
+                                "description": "The current IPv4 address of the adapter.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "IPv4Gateway",
+                                "displayName": "IPv4 gateway address",
+                                "description": "Optional: The current gateway IPv4 address of the adapter.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "IPv6Addresses",
+                                "displayName": "Network adapter IPv6 addresses",
+                                "description": "Optional: The current IPv6 addresses of the adapter comma separated.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "IPv6Gateway",
+                                "displayName": "IPv6 gateway address",
+                                "description": "Optional: The current gateway IPv6 address of the adapter.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "MACAddress",
+                                "displayName": "MAC address",
+                                "description": "Optional: MAC address of the network adapter.",
+                                "schema": "string"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "GetPortForwardings",
+            "displayName": "Get all port forwarding",
+            "description": "Get all the configured port forwarding details",
+            "response": {
+                "name": "PortForwardingDetails",
+                "displayName": "Configured port forwardings of the Remote Service Unit",
+                "schema": {
+                    "@type": "Array",
+                    "elementSchema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Name",
+                                "displayName": "Name",
+                                "description": "Unique name of the port forwarding configuration.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "SourceIP",
+                                "displayName": "Source IP",
+                                "description": "Source IP of the RSU for the port forwarding",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "SourcePort",
+                                "displayName": "Source port",
+                                "description": "Source port for the port forwarding.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "DestinationIP",
+                                "displayName": "Destination IP",
+                                "description": "Destination IP e.g. IP of the FPA.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "DestinationPort",
+                                "displayName": "Destination port",
+                                "description": "Destination port for the port forwarding.",
+                                "schema": "string"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "AddPortForwarding",
+            "displayName": "Add TCP/IP port forwarding",
+            "description": "Command to add port forwarding to the RSU.",
+            "request": {
+                "name": "PortForwardingConfiguration",
+                "displayName": "Port Forwarding Configuration",
+                "description": "Configuration for a port forwarding.",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "Name",
+                            "displayName": "Name",
+                            "description": "Unique name of the port forwarding configuration.",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "SourceIP",
+                            "displayName": "Source IP",
+                            "description": "Source IP of the RSU for the port forwarding",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "SourcePort",
+                            "displayName": "Source port",
+                            "description": "Source port for the port forwarding.",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "DestinationIP",
+                            "displayName": "Destination IP",
+                            "description": "Destination IP e.g. IP of the FPA.",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "DestinationPort",
+                            "displayName": "Destination port",
+                            "description": "Destination port for the port forwarding.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            },
+            "response": {
+                "name": "PortForwardingConfigurationStatus",
+                "displayName": "Port Forwarding Configuration Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "PortForwardingActive",
+                            "displayName": "Port Forwarding Active",
+                            "description": "True when the port forwarding was established.",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "RemovePortForwarding",
+            "displayName": "Remove TCP/IP port forwarding",
+            "description": "Command to remove port forwarding from the RSU.",
+            "request": {
+                "name": "Name",
+                "displayName": "Name Port Forwarding Configuration",
+                "description": "Name of the configuration for a port forwarding.",
+                "schema": "string"
+            },
+            "response": {
+                "name": "PortForwardingRemovedStatus",
+                "displayName": "Port Forwarding Removed Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "PortForwardingRemoved",
+                            "displayName": "Port Forwarding Removed",
+                            "description": "True when the port forwarding was removed.",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "ClearPortForwardings",
+            "displayName": "Remove all RSU connector port forwardings",
+            "description": "Command to remove all RSU connector port forwarding from the RSU.",
+            "response": {
+                "name": "PortForwardingRemovedStatus",
+                "displayName": "Port Forwarding Removed Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "PortForwardingCleared",
+                            "displayName": "All Port Forwarding Removed",
+                            "description": "True when all port forwardings were removed.",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "GetVPNConfigurations",
+            "displayName": "Get all VPN configurations",
+            "description": "Get all the VPN configuration details",
+            "response": {
+                "name": "VPNConfigurationDetails",
+                "displayName": "VPN configurations of the Remote Service Unit",
+                "schema": {
+                    "@type": "Array",
+                    "elementSchema": {
+                        "@type": "Object",
+                        "fields": [
+                            {
+                                "name": "Name",
+                                "displayName": "Name",
+                                "description": "Unique name of the port forwarding configuration.",
+                                "schema": "string"
+                            },
+                            {
+                                "name": "IsConnected",
+                                "displayName": "Is Connected",
+                                "description": "Indicates that the VPN connection is active.",
+                                "schema": "boolean"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "StartVPNConnection",
+            "displayName": "Start VPN Connection",
+            "description": "Open VPN connection to the cloud gateway.",
+            "request": {
+                "name": "Name",
+                "displayName": "Remote Connection Name (VPN config)",
+                "description": "The name of the VPN configuration of the RSU.",
+                "schema": "string"
+            },
+            "response": {
+                "name": "VPNConnectionStatus",
+                "displayName": "VPN Connection Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "ConnectionEstablished",
+                            "displayName": "Connection established",
+                            "description": "Connection to VPN gateway is established",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "RemoteConnectionIPAddress",
+                            "displayName": "Remote connection IP address",
+                            "description": "IP Address for the remote connection",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "StopVPNConnection",
+            "displayName": "Stop VPN Connection",
+            "description": "Close VPN Connection to the cloud gateway.",
+            "request": {
+                "name": "Name",
+                "displayName": "Remote Connection Name (VPN config)",
+                "description": "The name of the VPN configuration of the RSU.",
+                "schema": "string"
+            },
+            "response": {
+                "name": "VPNConnectionStatus",
+                "displayName": "Remote Connection Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "ConnectionClosed",
+                            "displayName": "Connection closed",
+                            "description": "True the connection to VPN gateway is closed",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "ConfigureVPNConnection",
+            "displayName": "Configure VPN Connection",
+            "description": "Add or update OpenVPN configuration on RSU",
+            "request": {
+                "name": "VPNConfiguration",
+                "displayName": "VPN Configuration",
+                "description": "Name and the OpenVPN configuration",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "Name",
+                            "displayName": "Unique VPN connection name",
+                            "description": "Unique name to start and stop the VPN connection",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "VPNconfig",
+                            "displayName": "VPNconfig",
+                            "description": "VPNconfig as ovpn formatted string",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            },
+            "response": {
+                "name": "VPNConfigurationStatus",
+                "displayName": "VPN Configuration Status",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "VPNConfigurationChanged",
+                            "displayName": "VPN configuration changed",
+                            "description": "True when the VPN configuration was added or updated",
+                            "schema": "boolean"
+                        },
+                        {
+                            "name": "Message",
+                            "displayName": "Message",
+                            "description": "Optional human friendly message e.g. about an error.",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

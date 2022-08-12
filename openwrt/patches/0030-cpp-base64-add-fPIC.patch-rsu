@@ -1,0 +1,12 @@
+diff --git a/libs/cpp-base64/Makefile b/libs/cpp-base64/Makefile
+index 8516cc8..431272f 100644
+--- a/libs/cpp-base64/Makefile
++++ b/libs/cpp-base64/Makefile
+@@ -36,6 +36,7 @@ define Package/cpp-base64/description
+ endef
+ 
+ CMAKE_BINARY_SUBDIR:=build_openwrt
++TARGET_CFLAGS += $(FPIC)
+ 
+ define Build/InstallDev
+ 	$(INSTALL_DIR) $(1)/usr/include/
