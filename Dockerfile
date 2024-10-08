@@ -7,7 +7,7 @@ RUN apt-get upgrade -y
 # Upgrade cmake to latest version
 RUN apt purge --auto-remove cmake
 RUN apt-get install -y software-properties-common
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 42D5A192B819C5DA
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 42D5A192B819C5DA 1A127079A92F09ED
 RUN echo 'deb https://apt.kitware.com/ubuntu/ bionic main' | tee /etc/apt/sources.list.d/kitware.list > /dev/null
 RUN apt-get update -y
 

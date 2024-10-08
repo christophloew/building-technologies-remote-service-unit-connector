@@ -48,6 +48,13 @@ docker run -it -v $(pwd)/../openwrt:/openwrt rsu-connector-build:latest /bin/bas
 
 All the following commands should now be running inside the container.
 
+In case you're building via WSL on Windows, create the openwrt folder in the WSL root file system instead of the mounted C drive.
+This ensures working symlinks and improves performance considerably:
+
+``` bash
+docker run -it -v /home/<user name>/openwrt:/openwrt rsu-connector-build:latest /bin/bash
+```
+
 ---
 
 
@@ -102,7 +109,7 @@ cd $openwrtDir
 cp $srcConfigMips .config
 make defconfig
 make download
-make -j5 world
+make -j9 world
 make package/feeds/rsu/rapidjson/compile
 make package/feeds/packages/spdlog/compile
 make package/feeds/rsu/cpp-base64/compile
@@ -111,7 +118,7 @@ make package/feeds/rsu/cpp-base64/compile
 cp $srcConfigX86 .config
 make defconfig
 make download
-make -j5 world
+make -j9 world
 make package/feeds/rsu/rapidjson/compile
 make package/feeds/packages/spdlog/compile
 make package/feeds/rsu/cpp-base64/compile
@@ -125,14 +132,14 @@ make package/feeds/rsu/cpp-base64/compile
 
 ``` bash
 cd $rsuConnectorSourceDir
-./build_mips.sh -j5
+./build_mips.sh -j9
 ```
 
 #### Build x86_64 binary
 
 ``` bash
 cd $rsuConnectorSourceDir
-./build_x86.sh -j5
+./build_x86.sh -j9
 ```
 
 #### Run unit tests
